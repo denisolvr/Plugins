@@ -24,7 +24,7 @@
 /*
  * Natural Sort algorithm for Javascript - Version 0.7 - Released under MIT license
  * Author: Jim Palmer (based on chunking idea from Dave Koelle)
- * Contributors: Mike Grier (mgrier.com), Clint Priest, Kyle Adams, guillermo
+ * Contributors: Mike Grier (mgrier.com), Clint Priest, Kyle Adams, guillermo, denisolvr
  * See: http://js-naturalsort.googlecode.com/svn/trunk/naturalSort.js
  */
 function naturalSort (a, b) {
@@ -33,9 +33,16 @@ function naturalSort (a, b) {
 		dre = /(^([\w ]+,?[\w ]+)?[\w ]+,?[\w ]+\d+:\d+(:\d+)?[\w ]?|^\d{1,4}[\/\-]\d{1,4}[\/\-]\d{1,4}|^\w+, \w+ \d+, \d{4})/,
 		hre = /^0x[0-9a-f]+$/i,
 		ore = /^0/,
+        cre = /((\R\$ )((((\d*)(\.))|((\d*)))(\d*))(\,)(\d*))/g,
+
 		// convert all to strings and trim()
 		x = a.toString().replace(sre, '') || '',
 		y = b.toString().replace(sre, '') || '',
+
+        //convert currence Real(pt-br) to number
+        x = a.toString().replace(cre, '$6'+'$9'+'$10'+'$12', '') || '',
+        y = b.toString().replace(cre, '$6'+'$9'+'$10'+'$12', '') || '',
+
 		// chunk/tokenize
 		xN = x.replace(re, '\0$1\0').replace(/\0$/,'').replace(/^\0/,'').split('\0'),
 		yN = y.replace(re, '\0$1\0').replace(/\0$/,'').replace(/^\0/,'').split('\0'),
